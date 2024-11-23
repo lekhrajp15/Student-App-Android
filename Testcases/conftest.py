@@ -5,7 +5,7 @@ from allure_commons.types import AttachmentType
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 
-driver = None
+
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
@@ -15,23 +15,24 @@ def pytest_runtest_makereport(item, call):
     return rep
 
 
-
-
 @pytest.fixture
 def browser(request):
     return request.config.getoption("--browser")
 
 
-@pytest.fixture()
+@pytest.fixture
 def appiumdriver(request):
     desired_caps = {
-        'deviceName': 'emulator-5554',
+        'deviceName': 'Android',
         'platformName': 'Android',
         'appActivity': 'com.embibe.jioembibe.mobile.LandingActivity',
         'appPackage': 'com.embibe.student',
         'automationName': 'UiAutomator2',
-        'appium:ignoreHiddenApiPolicyError': True  # Corrected to use the string key
+
+
+        # 'appium:ignoreHiddenApiPolicyError': True  # Corrected to use the string key
     }
+    global driver
     option=UiAutomator2Options().load_capabilities(desired_caps)
     driver = webdriver.Remote("http://127.0.0.1:4723", options=option)
     driver.implicitly_wait(10)

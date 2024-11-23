@@ -2,7 +2,9 @@ import time
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import NoSuchElementException
+from selenium.webdriver.common.by import By
 
+from Pages.searchpage import Search_Module
 from Utilities.scroll_util import ScrollUtil
 
 
@@ -33,9 +35,13 @@ class TestHome:
     trending_test_tile = AppiumBy.XPATH, '//android.widget.TextView[@resource-id="com.embibe.student:id/header" and @text="Trending Tests for Your Exam"]/parent::android.widget.RelativeLayout/parent::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]'
     full_test_tile = AppiumBy.XPATH, '//android.widget.TextView[@resource-id="com.embibe.student:id/header" and @text="Take Full Tests"]/parent::android.widget.RelativeLayout/parent::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]'
     chapter_test_tile = AppiumBy.XPATH, '//android.widget.TextView[@resource-id="com.embibe.student:id/header" and @text="Take Chapter Tests"]/parent::android.widget.RelativeLayout/parent::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]'
-
-
-
+    recommended_learning_tile = AppiumBy.XPATH, '//android.widget.TextView[@resource-id="com.embibe.student:id/header" and @text="Recommended Learning to Ace this Test"]/parent::android.widget.RelativeLayout/parent::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]'
+    recommended_practice_tile = AppiumBy.XPATH, '//android.widget.TextView[@resource-id="com.embibe.student:id/header" and @text="Recommended Practice to Ace this Test"]/parent::android.widget.RelativeLayout/parent::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]'
+    more_tests = AppiumBy.XPATH, '//android.widget.TextView[@resource-id="com.embibe.student:id/header" and @text="More Tests on this Syllabus"]/parent::android.widget.RelativeLayout/parent::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout[1]/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]'
+    video_resume_button = AppiumBy.ID, 'com.embibe.student:id/btn_resume'
+    video_close_button = AppiumBy.ID, 'com.embibe.student:id/btn_quit'
+    practice_milestone = AppiumBy.XPATH, '//android.widget.Image[@text="milestone-active"]'
+    practice_close_btn = By.XPATH, '//android.widget.TextView[@text=""]'
 
     def five_mins_custom_test(self):
         self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
@@ -63,6 +69,23 @@ class TestHome:
         self.driver.find_element(*TestHome.quick_5_min_test_btn).click()
         time.sleep(10)
         self.test_taking()
+
+        self.driver.press_keycode(4)
+
+        # Recommended Learning to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
+        self.driver.find_element(*TestHome.recommended_learning_tile).click()
+        time.sleep(3)
+        self.video_details()
+
+        # Recommended Practice to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
+        self.driver.find_element(*TestHome.recommended_practice_tile).click()
+        time.sleep(10)
+
+        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
+        self.practice_taking()
+
 
     def custom_test(self):
         self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
@@ -102,6 +125,22 @@ class TestHome:
 
         self.test_taking()
 
+        self.driver.press_keycode(4)
+
+        # Recommended Learning to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
+        self.driver.find_element(*TestHome.recommended_learning_tile).click()
+        time.sleep(3)
+        self.video_details()
+
+        # Recommended Practice to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
+        self.driver.find_element(*TestHome.recommended_practice_tile).click()
+        time.sleep(10)
+
+        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
+        self.practice_taking()
+
     def trending_test(self):
         self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
         time.sleep(3)
@@ -113,6 +152,47 @@ class TestHome:
         self.driver.find_element(*TestHome.trending_test_tile).click()
         self.test_taking()
 
+        self.driver.press_keycode(4)
+
+        #Recommended Learning to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
+        self.driver.find_element(*TestHome.recommended_learning_tile).click()
+        time.sleep(3)
+        self.video_details()
+
+
+        # Recommended Practice to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
+        self.driver.find_element(*TestHome.recommended_practice_tile).click()
+        time.sleep(10)
+
+        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
+        self.practice_taking()
+
+
+        # More Tests
+        # ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.more_tests)
+        # self.driver.find_element(*TestHome.more_tests).click()
+        # try:
+        #     popup_element = self.driver.find_element(*TestHome.test_env_popup)
+        #     if popup_element.is_displayed():
+        #         self.driver.find_element(*TestHome.sel_new_embibe_expUI).click()
+        #         self.driver.find_element(*TestHome.instruc_next_button).click()
+        #         self.driver.find_element(*TestHome.instruct_chkbox).click()
+        #         self.driver.find_element(*TestHome.i_am_ready_to_begin_btn).click()
+        #         time.sleep(5)
+        #
+        #     else:
+        #         self.driver.find_element(*TestHome.instruct_chkbox).click()
+        #         self.driver.find_element(*TestHome.old_test_ui_start_test_btn).click()
+        #         time.sleep(5)
+        #
+        # except NoSuchElementException:
+        #     print("Test Feedback")
+        #     time.sleep(5)
+
+
+
     def full_test(self):
         self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
         time.sleep(3)
@@ -122,6 +202,21 @@ class TestHome:
         ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.full_test_tile)
         self.driver.find_element(*TestHome.full_test_tile).click()
         self.test_taking()
+        self.driver.press_keycode(4)
+
+        # Recommended Learning to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
+        self.driver.find_element(*TestHome.recommended_learning_tile).click()
+        time.sleep(3)
+        self.video_details()
+
+        # Recommended Practice to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
+        self.driver.find_element(*TestHome.recommended_practice_tile).click()
+        time.sleep(10)
+
+        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
+        self.practice_taking()
 
     def chapter_test(self):
         self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
@@ -133,6 +228,21 @@ class TestHome:
 
         self.driver.find_element(*TestHome.chapter_test_tile).click()
         self.test_taking()
+        self.driver.press_keycode(4)
+
+        # Recommended Learning to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
+        self.driver.find_element(*TestHome.recommended_learning_tile).click()
+        time.sleep(3)
+        self.video_details()
+
+        # Recommended Practice to Ace this Test
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
+        self.driver.find_element(*TestHome.recommended_practice_tile).click()
+        time.sleep(10)
+
+        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
+        self.practice_taking()
 
 
 
@@ -236,5 +346,165 @@ class TestHome:
                 print("Test already Taken")
             else:
                 print(f"An error occurred: {e}")
+
+    def video_details(self):
+        try:
+            if self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
+                self.driver.find_element(*TestHome.video_resume_button).click()
+                time.sleep(3)
+                self.driver.press_keycode(4)
+                self.driver.find_element(*TestHome.video_close_button).click()
+        except NoSuchElementException:
+            time.sleep(3)
+            self.driver.press_keycode(4)
+            self.driver.find_element(*TestHome.video_close_button).click()
+
+
+    def practice_taking(self):
+        time.sleep(10)
+
+        for i in range(1, 4):
+            try:
+                time.sleep(3)
+                question_element = self.driver.find_element(AppiumBy.XPATH,
+                                                       '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View/android.widget.TextView[1]').text
+                print(question_element)
+
+                if "Multiple Choice" in question_element:
+                    time.sleep(5)
+
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[3]').click()
+
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[4]').click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Single Choice" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        "//android.view.View[@resource-id=\"PracticeConatiner\"]/android.view.View[1]/android.view.View[4]").click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "True-False" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[4]').click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Assertion" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[2]').click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+
+                elif "Single DropDown" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Select\")").click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.TextView[@text="Select"]/parent::android.view.View/parent::android.view.View/android.view.View[2]/android.view.View/android.widget.TextView[1]').click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Subjective" in question_element:
+                    # self.driver.find_element(By.XPATH,
+                    #                     "//div[@class='Title_title__og5qd']/div/div[2]/span/span/i").click()
+
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Full Solution\")").click()
+                    time.sleep(10)
+
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+
+                elif "Subjective Numerical" in question_element:
+                    time.sleep(5)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Solve With Us\")").click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Full Solution\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Subjective Answer" in question_element:
+                    time.sleep(5)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Solve With Us\")").click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Full Solution\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+
+                elif "Fill in The Blanks" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH, "//android.view.View[@resource-id=\"fb-blank-0\"]").click()
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="fb-blank-0"]/android.widget.EditText').send_keys(
+                        "abc")
+                    self.driver.hide_keyboard()
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Check"]').click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Integer" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        "//div[@class='Title_title__og5qd']/div/div[2]/span/span/i").click()
+                    self.driver.find_element(AppiumBy.CSS_SELECTOR, "[id='fb-blank-0']").click()
+                    time.sleep(2)
+
+                    self.driver.find_element(AppiumBy.CSS_SELECTOR, "[status='DEFAULT']").send_keys("1")
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Check']").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+                elif "Multiple Fill in The Blanks" in question_element:
+                    self.driver.find_element(AppiumBy.XPATH, '//android.view.View[@resource-id="fb-blank-0"]').click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="fb-blank-0"]/android.widget.EditText').send_keys(
+                        "abc")
+                    self.driver.hide_keyboard()
+
+                    self.driver.find_element(AppiumBy.XPATH, '//android.view.View[@resource-id="fb-blank-1"]').click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="fb-blank-1"]/android.widget.EditText').send_keys(
+                        "xyz")
+                    self.driver.hide_keyboard()
+
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Check']").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+                    # driver.find_element(AppiumBy.XPATH, "//android.widget.Button[@text=\"Solve With Us\"]").click()
+                    # driver.find_element(AppiumBy.XPATH, "//*[@text='Full Solution']").click()
+                    # driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+                elif "Learn Intervention" in question_element:
+                    self.driver.find_element(AppiumBy.XPATH, "//android.widget.Button[@text=\"Continue Practice\"]").click()
+
+            except NoSuchElementException:
+                self.driver.find_element(AppiumBy.XPATH, "//android.widget.Button[@text=\"Solve With Us\"]").click()
+                self.driver.find_element(AppiumBy.XPATH, "//*[@text='Full Solution']").click()
+                self.driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+        self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text=""]').click()
+        self.driver.find_element(AppiumBy.ID, 'com.embibe.student:id/btn_quit').click()
 
 

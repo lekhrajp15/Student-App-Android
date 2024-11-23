@@ -33,7 +33,7 @@ class landingpages:
         self.driver.find_element(*landingpages.get_started).click()
         self.driver.find_element(*landingpages.stu_email_field).click()
         self.driver.find_element(*landingpages.click_using_password_link).click()
-        self.driver.find_element(*landingpages.stu_email_field).send_keys('9035371071')
+        self.driver.find_element(*landingpages.stu_email_field).send_keys('lekhraj.p@embibe.com')
         self.driver.find_element(*landingpages.stu_password_field).send_keys('Embibe@1')
         time.sleep(3)
         self.driver.find_element(*landingpages.stu_proceed_btn).click()

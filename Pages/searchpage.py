@@ -2,6 +2,7 @@ import time
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 
 class Search_Module:
@@ -40,6 +41,7 @@ class Search_Module:
     test_i_am_ready_to_begin_btn = AppiumBy.ID, 'com.embibe.student:id/btn_ready'
     test_old_ui_start_now_btn = AppiumBy.ID, 'com.embibe.student:id/btn_start'
     test_fb_achieve_btn = AppiumBy.ID, 'com.embibe.student:id/tv_continue_learning'
+    practice_close_btn = By.XPATH, '//android.widget.TextView[@text=""]'
 
     def search_module_click(self):
         self.driver.find_element(*Search_Module.guided_tour_cancel_btn).click()
@@ -77,7 +79,7 @@ class Search_Module:
         self.driver.press_keycode(66)
         self.driver.find_element(*Search_Module.practice_tab).click()
         self.driver.find_element(*Search_Module.result_tile).click()
-        time.sleep(2)
+        time.sleep(10)
         try:
             # Check if the exam change popup is displayed and click if found
             if self.driver.find_element(*Search_Module.change_goal_popup).is_displayed():
@@ -85,12 +87,15 @@ class Search_Module:
                 time.sleep(10)  # Wait for the next element to appear
 
             # Check if the practice milestone is displayed
-            self.driver.find_element(*Search_Module.practice_milestone).is_displayed()
+                self.driver.find_element(*Search_Module.practice_milestone).is_displayed()
+                self.driver.press_keycode(66)
 
         except Exception as e:
             # Handle the exception and still check for the practice milestone
             time.sleep(10)
-            self.driver.find_element(*Search_Module.practice_milestone).is_displayed()
+            self.practice_taking()
+
+
 
     def search_question_click(self):
         self.driver.find_element(*Search_Module.guided_tour_cancel_btn).click()
@@ -174,7 +179,7 @@ class Search_Module:
                     self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
                     self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
 
-        # Fallback: Check if the Facebook achievement button is displayed
+        # Fallback: Check if the feedback achievement button is displayed
                 else:
                     self.driver.find_element(*Search_Module.test_fb_achieve_btn).is_displayed()
 
@@ -209,5 +214,148 @@ class Search_Module:
             self.driver.find_element(*Search_Module.video_close_button).click()
 
 
+    def practice_taking(self):
+        time.sleep(10)
+
+        for i in range(1, 4):
+            try:
+                time.sleep(3)
+                question_element = self.driver.find_element(AppiumBy.XPATH,
+                                                       '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View/android.widget.TextView[1]').text
+                print(question_element)
+
+                if "Multiple Choice" in question_element:
+                    time.sleep(5)
+
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[3]').click()
+
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[4]').click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Single Choice" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        "//android.view.View[@resource-id=\"PracticeConatiner\"]/android.view.View[1]/android.view.View[4]").click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "True-False" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[4]').click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Assertion" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="PracticeConatiner"]/android.view.View[1]/android.view.View[2]').click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
 
 
+                elif "Single DropDown" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, "new UiSelector().text(\"Select\")").click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.TextView[@text="Select"]/parent::android.view.View/parent::android.view.View/android.view.View[2]/android.view.View/android.widget.TextView[1]').click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, value="new UiSelector().text(\"Check\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Subjective" in question_element:
+                    # self.driver.find_element(By.XPATH,
+                    #                     "//div[@class='Title_title__og5qd']/div/div[2]/span/span/i").click()
+
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Full Solution\")").click()
+                    time.sleep(10)
+
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+
+                elif "Subjective Numerical" in question_element:
+                    time.sleep(5)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Solve With Us\")").click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Full Solution\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Subjective Answer" in question_element:
+                    time.sleep(5)
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Solve With Us\")").click()
+                    self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                        value="new UiSelector().text(\"Full Solution\")").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+
+                elif "Fill in The Blanks" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH, "//android.view.View[@resource-id=\"fb-blank-0\"]").click()
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="fb-blank-0"]/android.widget.EditText').send_keys(
+                        "abc")
+                    self.driver.hide_keyboard()
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Check"]').click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, '//android.widget.Button[@text="Continue"]').click()
+
+                elif "Integer" in question_element:
+                    time.sleep(3)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        "//div[@class='Title_title__og5qd']/div/div[2]/span/span/i").click()
+                    self.driver.find_element(AppiumBy.CSS_SELECTOR, "[id='fb-blank-0']").click()
+                    time.sleep(2)
+
+                    self.driver.find_element(AppiumBy.CSS_SELECTOR, "[status='DEFAULT']").send_keys("1")
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Check']").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+                elif "Multiple Fill in The Blanks" in question_element:
+                    self.driver.find_element(AppiumBy.XPATH, '//android.view.View[@resource-id="fb-blank-0"]').click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="fb-blank-0"]/android.widget.EditText').send_keys(
+                        "abc")
+                    self.driver.hide_keyboard()
+
+                    self.driver.find_element(AppiumBy.XPATH, '//android.view.View[@resource-id="fb-blank-1"]').click()
+                    time.sleep(2)
+                    self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.view.View[@resource-id="fb-blank-1"]/android.widget.EditText').send_keys(
+                        "xyz")
+                    self.driver.hide_keyboard()
+
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Check']").click()
+                    time.sleep(10)
+                    self.driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+                    # driver.find_element(AppiumBy.XPATH, "//android.widget.Button[@text=\"Solve With Us\"]").click()
+                    # driver.find_element(AppiumBy.XPATH, "//*[@text='Full Solution']").click()
+                    # driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+                elif "Learn Intervention" in question_element:
+                    self.driver.find_element(AppiumBy.XPATH, "//android.widget.Button[@text=\"Continue Practice\"]").click()
+
+            except NoSuchElementException:
+                self.driver.find_element(AppiumBy.XPATH, "//android.widget.Button[@text=\"Solve With Us\"]").click()
+                self.driver.find_element(AppiumBy.XPATH, "//*[@text='Full Solution']").click()
+                self.driver.find_element(AppiumBy.XPATH, "//*[@text='Continue']").click()
+
+        self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text=""]').click()
+        self.driver.find_element(AppiumBy.ID, 'com.embibe.student:id/btn_quit').click()

@@ -25,8 +25,8 @@ class TestEmbibeApp(BaseClass):
     def test_login_with_OTP(self):
         lp = landingpages(self.driver)
         lp.signinusingOTP()
-        log = self.getLogger()
-        log.info("Testcase 2 : User Logs in via OTP")
+        # log = self.getLogger()
+        # log.info("Testcase 2 : User Logs in via OTP")
 
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_forgot_password(self):
@@ -122,19 +122,19 @@ class TestEmbibeApp(BaseClass):
         self._login_with_password()
         TH = TestHome(self.driver)
         TH.trending_test()
-    #
+
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_full_test_tile(self):
         self._login_with_password()
         TH = TestHome(self.driver)
         TH.full_test()
-    #
+
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_chapter_test_tile(self):
         self._login_with_password()
         TH = TestHome(self.driver)
         TH.chapter_test()
-    #
+
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_search_module(self):
         self._login_with_password()

@@ -192,6 +192,7 @@ class LearnHome:
             self.driver.find_element(*LearnHome.video_close_button).click()
             time.sleep(3)
         self.driver.press_keycode(4)
+        self.driver.press_keycode(4)
 
         #Prerequisite Topics
         ScrollUtil.swipeUp(4, self.driver)
