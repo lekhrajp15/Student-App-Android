@@ -62,12 +62,6 @@ class Profile_Menu:
         self.driver.find_element(*Profile_Menu.avatar_1).click()
         self.driver.find_element(*Profile_Menu.profile_save_btn).click()
 
-
-
-
-
-
-
     def menu_settings(self):
         self.driver.find_element(*Profile_Menu.guided_tour_cancel_btn).click()
         self.driver.find_element(*Profile_Menu.profile_icon).click()

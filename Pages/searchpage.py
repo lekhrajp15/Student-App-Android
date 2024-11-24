@@ -4,6 +4,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
+from Pages.learnhome import LearnHome
+
 
 class Search_Module:
 
@@ -95,8 +97,6 @@ class Search_Module:
             time.sleep(10)
             self.practice_taking()
 
-
-
     def search_question_click(self):
         self.driver.find_element(*Search_Module.guided_tour_cancel_btn).click()
         time.sleep(10)
@@ -107,7 +107,7 @@ class Search_Module:
         self.driver.find_element(*Search_Module.questions_tab).click()
         self.driver.find_element(*Search_Module.questions_tile).click()
         time.sleep(5)
-        self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="First Looked"]').is_displayed()
+        assert  self.driver.find_element(AppiumBy.XPATH, '//*[@text="Explanation:"]').is_displayed()
 
     def search_book_click(self):
         self.driver.find_element(*Search_Module.guided_tour_cancel_btn).click()
@@ -120,6 +120,12 @@ class Search_Module:
         self.driver.find_element(*Search_Module.result_tile).click()
         time.sleep(4)
         self.driver.find_element(*Search_Module.share_button).is_displayed()
+        self.driver.find_element(*LearnHome.chapterone).click()
+        self.driver.find_element(*LearnHome.chapterone).click()
+        self.driver.find_element(AppiumBy.XPATH,
+                                 '(//android.widget.FrameLayout[@resource-id="com.embibe.student:id/adBannerCardView"])[1]').click()
+
+        self.video_details()
 
         #Chapter and Topic Click
         # time.sleep(5)
@@ -212,7 +218,6 @@ class Search_Module:
             time.sleep(10)
             self.driver.press_keycode(4)
             self.driver.find_element(*Search_Module.video_close_button).click()
-
 
     def practice_taking(self):
         time.sleep(10)

@@ -1,5 +1,4 @@
 import time
-
 import pytest
 from Pages.landingPages import landingpages
 from Pages.profile_menu import Profile_Menu
@@ -99,6 +98,57 @@ class TestEmbibeApp(BaseClass):
         time.sleep(3)
 
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_learn_PTR_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.learn_ptr()
+        time.sleep(3)
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_learn_sincerity_score_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.learn_sincerity_score()
+        time.sleep(3)
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_learn_embibe_explainers_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.learn_embibe_explainers()
+        time.sleep(3)
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_learn_topics_in_this_chapter_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.learn_topics_in_this_chapter()
+        time.sleep(3)
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_learn_prerequisite_topics_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.learn_prerequisite_topics()
+        time.sleep(3)
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_taking_in_chapter_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.test_taking_in_chapter()
+        time.sleep(3)
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_practice_taking_in_chapter_tile(self):
+        self._login_with_password()
+        LH = LearnHome(self.driver)
+        LH.practice_taking_in_chapter()
+        time.sleep(3)
+
+
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_continue_learning_tile(self):
         self._login_with_password()
         LH = LearnHome(self.driver)
@@ -106,6 +156,7 @@ class TestEmbibeApp(BaseClass):
         time.sleep(3)
     #
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+
     def test_five_mins_custom_test_tile(self):
         self._login_with_password()
         TH = TestHome(self.driver)
@@ -124,16 +175,67 @@ class TestEmbibeApp(BaseClass):
         TH.trending_test()
 
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_recommended_learning_to_ace_this_trending_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.recommended_learning_to_ace_in_trending_test()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_recommended_practice_to_ace_in_trending_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.recommended_practice_to_ace_in_trending_test()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_more_test_taking_in_trending_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.more_test_taking_in_trending_test()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_full_test_tile(self):
         self._login_with_password()
         TH = TestHome(self.driver)
         TH.full_test()
 
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_recommended_learning_to_ace_this_full_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.recommended_learning_to_ace_this_full_test()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_recommended_practice_to_ace_this_full_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.recommended_practice_to_ace_this_full_test()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    def test_more_test_taking_in_full_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.more_test_taking_in_full_test()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_chapter_test_tile(self):
         self._login_with_password()
         TH = TestHome(self.driver)
         TH.chapter_test()
+
+    def test_recommended_learning_to_ace_this_chapter_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.recommended_learning_to_ace_this_chapter_test()
+
+    def test_recommended_practice_to_ace_this_chapter_test_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.recommended_practice_to_ace_this_chapter_test()
+
+    def test_more_test_taking_in_chapter_tile(self):
+        self._login_with_password()
+        TH = TestHome(self.driver)
+        TH.more_test_taking_in_chapter_test()
 
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_search_module(self):
@@ -158,7 +260,6 @@ class TestEmbibeApp(BaseClass):
         self._login_with_password()
         SM = Search_Module(self.driver)
         SM.search_question_click()
-
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
     def test_search_books(self):
         self._login_with_password()
