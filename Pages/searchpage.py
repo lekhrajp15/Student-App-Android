@@ -175,36 +175,24 @@ class Search_Module:
         # Check if the goal change popup is displayed
             if self.driver.find_element(*Search_Module.change_goal_popup).is_displayed():
                 self.driver.find_element(*Search_Module.update_goal_btn).click()
-                if self.driver.find_element(*Search_Module.test_env_popup).is_displayed():
-                    self.driver.find_element(*Search_Module.test_env_continue_btn).click()
-                    self.driver.find_element(*Search_Module.test_instru_next_btn).click()
-                    self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
-                    self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
+        except:
+            print("no Goal Pop up Appeared")
+        if self.driver.find_element(*Search_Module.test_env_popup).is_displayed():
+            self.driver.find_element(*Search_Module.test_env_continue_btn).click()
+            self.driver.find_element(*Search_Module.test_instru_next_btn).click()
+            self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
+            self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
 
-                elif self.driver.find_element(*Search_Module.test_instru_checkbox_btn).is_displayed():
-                    self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
-                    self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
+        elif self.driver.find_element(*Search_Module.test_instru_checkbox_btn).is_displayed():
+             self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
+             self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
+
 
         # Fallback: Check if the feedback achievement button is displayed
-                else:
-                    self.driver.find_element(*Search_Module.test_fb_achieve_btn).is_displayed()
+        else:
+             self.driver.find_element(*Search_Module.test_fb_achieve_btn).is_displayed()
+             print("Test already submitted")
 
-        except NoSuchElementException:
-            # Fallback: Handle exception for missing elements
-            if self.driver.find_element(*Search_Module.test_instru_checkbox_btn).is_displayed():
-               self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
-               self.driver.find_element(*Search_Module.test_old_ui_start_now_btn).click()
-
-        # Handle the test environment popup in case of exception
-            elif self.driver.find_element(*Search_Module.test_env_popup).is_displayed():
-                self.driver.find_element(*Search_Module.test_env_continue_btn).click()
-                self.driver.find_element(*Search_Module.test_instru_next_btn).click()
-                self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
-                self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
-
-        # Fallback: Check if the Facebook achievement button is displayed
-            else:
-                self.driver.find_element(*Search_Module.test_fb_achieve_btn).is_displayed()
 
     def video_details(self):
         try:

@@ -1,6 +1,7 @@
 import time
 import pytest
 from Pages.landingPages import landingpages
+from Pages.practicehome import PracticeHome
 from Pages.profile_menu import Profile_Menu
 from Pages.searchpage import Search_Module
 from Pages.learnhome import LearnHome
@@ -136,7 +137,7 @@ class TestEmbibeApp(BaseClass):
     def test_taking_in_chapter_tile(self):
         self._login_with_password()
         LH = LearnHome(self.driver)
-        LH.test_taking_in_chapter()
+        LH.test_taking_in_learn_chapter()
         time.sleep(3)
 
     @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
@@ -374,6 +375,78 @@ class TestEmbibeApp(BaseClass):
         self._login_with_password()
         PM = Profile_Menu(self.driver)
         PM.menu_sign_out()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_practice_chapter(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.practice_chapter_tile()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_practice_sincerity_score(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.sincerity_score_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_practice_attempt_quality_jar(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.attempt_quality_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_practice_chapter_PTR(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.PTR_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_topic_practice_chapter_PTR(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.topic_practice_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_practice_chapter_more_test(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.recommended_learning_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_recommended_learning_chapter(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.recommended_learning_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_recommended_learning_chapter(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.more_test_in_practice_chapter()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_embibe_author_books(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.embibe_author_book()
+
+    @pytest.mark.usefixtures("appiumdriver", "log_on_failure")
+    @pytest.mark.practice
+    def test_embibe_big_books(self):
+        self._login_with_password()
+        PH = PracticeHome(self.driver)
+        PH.embibe_big_book()
+
+
 
 
 

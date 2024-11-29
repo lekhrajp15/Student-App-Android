@@ -118,32 +118,7 @@ class TestHome:
         self.driver.find_element(*TestHome.test_name_field).send_keys('Custom Test')
         self.driver.find_element(*TestHome.create_test_btn).click()
         time.sleep(20)
-
         self.test_taking()
-
-        self.driver.press_keycode(4)
-
-        # Recommended Learning to Ace this Test
-        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
-        self.driver.find_element(*TestHome.recommended_learning_tile).click()
-        time.sleep(3)
-        self.video_details()
-
-        # Recommended Practice to Ace this Test
-        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
-        self.driver.find_element(*TestHome.recommended_practice_tile).click()
-        time.sleep(10)
-
-        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
-        self.practice_taking()
-
-        # More Tests
-        ScrollUtil.scroll_until_element_is_visible(self.driver, *TestHome.test_on_this_chapter)
-        time.sleep(2)
-        self.driver.find_element(*TestHome.test_tile_click).click()
-        time.sleep(10)
-
-        self.more_test_taking()
 
         self.driver.press_keycode(4)
 
@@ -157,29 +132,6 @@ class TestHome:
         time.sleep(5)
         self.driver.find_element(*TestHome.trending_test_tile).click()
         self.test_taking()
-
-        self.driver.press_keycode(4)
-
-        # Recommended Learning to Ace this Test
-        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
-        self.driver.find_element(*TestHome.recommended_learning_tile).click()
-        time.sleep(3)
-        self.video_details()
-
-        # Recommended Practice to Ace this Test
-        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
-        self.driver.find_element(*TestHome.recommended_practice_tile).click()
-        time.sleep(10)
-
-        # self.driver.find_element(*TestHome.practice_milestone).is_displayed()
-        self.practice_taking()
-        # More Tests
-        ScrollUtil.scroll_until_element_is_visible(self.driver, *TestHome.test_on_this_chapter)
-        time.sleep(2)
-        self.driver.find_element(*TestHome.test_tile_click).click()
-        time.sleep(10)
-
-        self.more_test_taking()
 
         self.driver.press_keycode(4)
 
@@ -242,6 +194,13 @@ class TestHome:
         self.driver.press_keycode(4)
 
     def recommended_learning_to_ace_this_full_test(self):
+        self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
+        time.sleep(3)
+        self.driver.find_element(*TestHome.test_tab).click()
+        time.sleep(5)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.full_test_tile)
+        self.driver.find_element(*TestHome.full_test_tile).click()
+        time.sleep(5)
         ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_learning_tile)
         self.driver.find_element(*TestHome.recommended_learning_tile).click()
         time.sleep(3)
@@ -250,6 +209,13 @@ class TestHome:
         # Recommended Practice to Ace this Test
 
     def recommended_practice_to_ace_this_full_test(self):
+        self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
+        time.sleep(3)
+        self.driver.find_element(*TestHome.test_tab).click()
+        time.sleep(5)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.full_test_tile)
+        self.driver.find_element(*TestHome.full_test_tile).click()
+        time.sleep(5)
         ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.recommended_practice_tile)
         self.driver.find_element(*TestHome.recommended_practice_tile).click()
         time.sleep(10)
@@ -259,13 +225,19 @@ class TestHome:
         # Test Taking in Chapter
 
     def more_test_taking_in_full_test(self):
+        self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
+        time.sleep(3)
+        self.driver.find_element(*TestHome.test_tab).click()
+        time.sleep(5)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, TestHome.full_test_tile)
+        self.driver.find_element(*TestHome.full_test_tile).click()
+        time.sleep(5)
         ScrollUtil.scroll_until_element_is_visible(self.driver, *TestHome.test_on_this_chapter)
         time.sleep(2)
         self.driver.find_element(*TestHome.test_tile_click).click()
         time.sleep(10)
         self.more_test_taking()
         self.driver.press_keycode(4)
-
 
     def chapter_test(self):
         self.driver.find_element(*TestHome.guided_tour_cancel_btn).click()
