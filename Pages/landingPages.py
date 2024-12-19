@@ -3,12 +3,11 @@ import time
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import NoSuchElementException
 
+from Utilities import configReader
 from Utilities.scroll_util import ScrollUtil
 
 
 class landingpages:
-    # username = configReader.readConfig('prod_credentials', 'username')
-    # password = configReader.readConfig('prod_credentials', 'password')
 
     def __init__(self,driver):
         self.driver = driver
@@ -31,10 +30,11 @@ class landingpages:
         self.driver.find_element(*landingpages.location_continue_btn).click()
         self.driver.find_element(*landingpages.loc_not_allow).click()
         self.driver.find_element(*landingpages.get_started).click()
+        time.sleep(3)
         self.driver.find_element(*landingpages.stu_email_field).click()
+        self.driver.find_element(*landingpages.stu_email_field).send_keys(configReader.readConfig('prod', 'username'))
         self.driver.find_element(*landingpages.click_using_password_link).click()
-        self.driver.find_element(*landingpages.stu_email_field).send_keys('lekhraj.p@embibe.com')
-        self.driver.find_element(*landingpages.stu_password_field).send_keys('Embibe@1')
+        self.driver.find_element(*landingpages.stu_password_field).send_keys(configReader.readConfig('prod', 'password'))
         time.sleep(3)
         self.driver.find_element(*landingpages.stu_proceed_btn).click()
         time.sleep(10)
@@ -66,7 +66,7 @@ class landingpages:
         self.driver.find_element(*landingpages.loc_not_allow).click()
         self.driver.find_element(*landingpages.get_started).click()
         self.driver.find_element(*landingpages.stu_email_field).click()
-        self.driver.find_element(*landingpages.stu_email_field).send_keys('9035371071')
+        self.driver.find_element(*landingpages.stu_email_field).send_keys(configReader.readConfig('prod', 'username'))
         self.driver.find_element(*landingpages.stu_OTP_btn_click).click()
         time.sleep(10)
 
@@ -116,7 +116,7 @@ class landingpages:
         self.driver.find_element(*landingpages.click_using_password_link).click()
         self.driver.find_element(*landingpages.forgot_password_link).click()
         self.driver.find_element(*landingpages.forgot_email_field).click()
-        self.driver.find_element(*landingpages.forgot_email_field).send_keys("9035371071")
+        self.driver.find_element(*landingpages.forgot_email_field).send_keys(configReader.readConfig('prod', 'username'))
         self.driver.find_element(*landingpages.stu_OTP_btn_click).click()
         time.sleep(10)
 

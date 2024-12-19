@@ -5,12 +5,16 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from Pages.learnhome import LearnHome
+from Pages.testhome import TestHome
+from Utilities.configReader import readConfig
 
 
-class Search_Module:
+class Search_Module(TestHome):
 
     def __init__(self, driver):
         self.driver=driver
+
+    keyword = readConfig('prod', 'search_kw')
 
     search_btn = AppiumBy.ID, 'com.embibe.student:id/search'
     search_field = AppiumBy.ID, 'com.embibe.student:id/query'
@@ -51,7 +55,7 @@ class Search_Module:
         time.sleep(5)
         self.driver.find_element(*Search_Module.search_btn).click()
         time.sleep(2)
-        self.driver.find_element(*Search_Module.search_field).send_keys("Magnetic Current")
+        self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
         self.driver.press_keycode(66)
         self.driver.find_element(*Search_Module.learn_tab).click()
         self.driver.find_element(*Search_Module.books_tab).click()
@@ -66,7 +70,7 @@ class Search_Module:
             time.sleep(10)
             self.driver.find_element(*Search_Module.search_btn).click()
             time.sleep(2)
-            self.driver.find_element(*Search_Module.search_field).send_keys("Magnetic Current")
+            self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
             self.driver.press_keycode(66)
             self.driver.find_element(*Search_Module.learn_tab).click()
             self.driver.find_element(*Search_Module.result_tile).click()
@@ -77,7 +81,7 @@ class Search_Module:
         time.sleep(10)
         self.driver.find_element(*Search_Module.search_btn).click()
         time.sleep(2)
-        self.driver.find_element(*Search_Module.search_field).send_keys("Magnetic Current")
+        self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
         self.driver.press_keycode(66)
         self.driver.find_element(*Search_Module.practice_tab).click()
         self.driver.find_element(*Search_Module.result_tile).click()
@@ -102,7 +106,7 @@ class Search_Module:
         time.sleep(10)
         self.driver.find_element(*Search_Module.search_btn).click()
         time.sleep(2)
-        self.driver.find_element(*Search_Module.search_field).send_keys("Magnetic Current")
+        self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
         self.driver.press_keycode(66)
         self.driver.find_element(*Search_Module.questions_tab).click()
         self.driver.find_element(*Search_Module.questions_tile).click()
@@ -114,18 +118,18 @@ class Search_Module:
         time.sleep(10)
         self.driver.find_element(*Search_Module.search_btn).click()
         time.sleep(2)
-        self.driver.find_element(*Search_Module.search_field).send_keys("Magnetic Current")
+        self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
         self.driver.press_keycode(66)
         self.driver.find_element(*Search_Module.books_tab).click()
         self.driver.find_element(*Search_Module.result_tile).click()
         time.sleep(4)
         self.driver.find_element(*Search_Module.share_button).is_displayed()
-        self.driver.find_element(*LearnHome.chapterone).click()
-        self.driver.find_element(*LearnHome.chapterone).click()
-        self.driver.find_element(AppiumBy.XPATH,
-                                 '(//android.widget.FrameLayout[@resource-id="com.embibe.student:id/adBannerCardView"])[1]').click()
-
-        self.video_details()
+        # self.driver.find_element(*LearnHome.chapterone).click()
+        # self.driver.find_element(*LearnHome.chapterone).click()
+        # self.driver.find_element(AppiumBy.XPATH,
+        #                          '(//android.widget.FrameLayout[@resource-id="com.embibe.student:id/adBannerCardView"])[1]').click()
+        #
+        # self.video_details()
 
         #Chapter and Topic Click
         # time.sleep(5)
@@ -147,7 +151,7 @@ class Search_Module:
         time.sleep(10)
         self.driver.find_element(*Search_Module.search_btn).click()
         time.sleep(2)
-        self.driver.find_element(*Search_Module.search_field).send_keys("Magnetic Current")
+        self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
         self.driver.press_keycode(66)
         self.driver.find_element(*Search_Module.practice_tab).click()
         self.driver.find_element(*Search_Module.ptr_tab).click()
@@ -162,7 +166,7 @@ class Search_Module:
         # Perform search for "Current"
         self.driver.find_element(*Search_Module.search_btn).click()
         time.sleep(2)
-        self.driver.find_element(*Search_Module.search_field).send_keys("life processes")
+        self.driver.find_element(*Search_Module.search_field).send_keys(Search_Module.keyword)
         self.driver.press_keycode(66)
 
         # Navigate through tabs and select the result tile
@@ -177,20 +181,24 @@ class Search_Module:
                 self.driver.find_element(*Search_Module.update_goal_btn).click()
         except:
             print("no Goal Pop up Appeared")
+        time.sleep(5)
         if self.driver.find_element(*Search_Module.test_env_popup).is_displayed():
             self.driver.find_element(*Search_Module.test_env_continue_btn).click()
             self.driver.find_element(*Search_Module.test_instru_next_btn).click()
             self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
             self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
+            time.sleep(10)
+            self.take_test()
 
         elif self.driver.find_element(*Search_Module.test_instru_checkbox_btn).is_displayed():
              self.driver.find_element(*Search_Module.test_instru_checkbox_btn).click()
              self.driver.find_element(*Search_Module.test_i_am_ready_to_begin_btn).click()
+             time.sleep(10)
+             self.take_test()
 
 
         # Fallback: Check if the feedback achievement button is displayed
         else:
-             self.driver.find_element(*Search_Module.test_fb_achieve_btn).is_displayed()
              print("Test already submitted")
 
 

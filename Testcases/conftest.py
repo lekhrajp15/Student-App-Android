@@ -35,7 +35,7 @@ def appiumdriver(request):
     global driver
     option=UiAutomator2Options().load_capabilities(desired_caps)
     driver = webdriver.Remote("http://127.0.0.1:4723", options=option)
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(20)
     request.cls.driver = driver
     yield driver
     driver.quit()

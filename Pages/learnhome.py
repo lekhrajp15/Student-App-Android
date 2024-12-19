@@ -7,7 +7,7 @@ from Utilities.scroll_util import ScrollUtil
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class LearnHome():
+class LearnHome(TestHome):
 
     def __init__(self, driver):
         self.driver = driver
@@ -86,12 +86,89 @@ class LearnHome():
         self.driver.find_element(*LearnHome.trending_videos_tile).click()
         self.video_details()
 
+    def trending_videos_more_topic_videos_click(self):
+        self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
+        time.sleep(3)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, LearnHome.trending_videos_tile)
+        time.sleep(2)
+        self.driver.find_element(*LearnHome.trending_videos_tile).click()
+        self.driver.find_element(*LearnHome.more_topic_tile).click()
+        try:
+            if self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
+                self.driver.find_element(*LearnHome.video_resume_button).click()
+                time.sleep(5)
+                self.driver.press_keycode(4)
+                self.driver.find_element(*LearnHome.video_close_button).click()
+        except NoSuchElementException:
+            time.sleep(10)
+            self.driver.press_keycode(4)
+            self.driver.find_element(*LearnHome.video_close_button).click()
+
+    def trending_videos_related_video_click(self):
+        self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
+        time.sleep(5)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, LearnHome.trending_videos_tile)
+        self.driver.find_element(*LearnHome.trending_videos_tile).click()
+        time.sleep(2)
+        self.driver.find_element(*LearnHome.related_video_tile).click()
+        try:
+            if self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
+                self.driver.find_element(*LearnHome.video_resume_button).click()
+                time.sleep(5)
+                self.driver.press_keycode(4)
+                self.driver.find_element(*LearnHome.video_close_button).click()
+        except NoSuchElementException:
+            time.sleep(10)
+            self.driver.press_keycode(4)
+            self.driver.find_element(*LearnHome.video_close_button).click()
+
     def embibe_explainer_videos(self):
         self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
         time.sleep(5)
         ScrollUtil.scroll_until_element_is_visible(self.driver, LearnHome.embibe_explainer_tile)
         self.driver.find_element(*LearnHome.embibe_explainer_tile).click()
         self.video_details()
+
+    def embibe_explainers_more_topic_videos_click(self):
+        self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
+        time.sleep(3)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, LearnHome.trending_videos_tile)
+        time.sleep(2)
+        self.driver.find_element(*LearnHome.trending_videos_tile).click()
+        self.driver.find_element(*LearnHome.more_topic_tile).click()
+        try:
+            if self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
+                self.driver.find_element(*LearnHome.video_resume_button).click()
+                time.sleep(5)
+                self.driver.press_keycode(4)
+                self.driver.find_element(*LearnHome.video_close_button).click()
+        except NoSuchElementException:
+            time.sleep(10)
+            self.driver.press_keycode(4)
+            self.driver.find_element(*LearnHome.video_close_button).click()
+
+    def embibe_explainers_related_video_click(self):
+        self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
+        time.sleep(3)
+        ScrollUtil.scroll_until_element_is_visible(self.driver, LearnHome.trending_videos_tile)
+        self.driver.find_element(*LearnHome.trending_videos_tile).click()
+        time.sleep(2)
+        self.driver.find_element(*LearnHome.related_video_tile).click()
+        try:
+            if self.driver.find_element(AppiumBy.XPATH,
+                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
+                self.driver.find_element(*LearnHome.video_resume_button).click()
+                time.sleep(5)
+                self.driver.press_keycode(4)
+                self.driver.find_element(*LearnHome.video_close_button).click()
+        except NoSuchElementException:
+            time.sleep(10)
+            self.driver.press_keycode(4)
+            self.driver.find_element(*LearnHome.video_close_button).click()
+
 
     def books_with_videos_solutions(self):
         self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
@@ -103,7 +180,17 @@ class LearnHome():
         self.driver.find_element(AppiumBy.XPATH,
                                  '(//android.widget.FrameLayout[@resource-id="com.embibe.student:id/adBannerCardView"])[1]').click()
         time.sleep(5)
-        self.video_details()
+        time.sleep(2)
+        try:
+            if self.driver.find_element(AppiumBy.ID, 'com.embibe.student:id/btn_resume').is_displayed():
+                self.driver.find_element(*LearnHome.video_resume_button).click()
+                time.sleep(5)
+                self.driver.press_keycode(4)
+                self.driver.find_element(*LearnHome.video_close_button).click()
+        except NoSuchElementException:
+            time.sleep(5)
+            self.driver.press_keycode(4)
+            self.driver.find_element(*LearnHome.video_close_button).click()
 
     def learn_chapters(self):
         self.driver.find_element(*LearnHome.guided_tour_cancel_btn).click()
@@ -277,34 +364,7 @@ class LearnHome():
             self.driver.press_keycode(4)
             self.driver.find_element(*LearnHome.video_close_button).click()
 
-        # More Topic Video Click
-        self.driver.find_element(*LearnHome.more_topic_tile).click()
-        try:
-            if self.driver.find_element(AppiumBy.XPATH,
-                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
-                self.driver.find_element(*LearnHome.video_resume_button).click()
-                time.sleep(5)
-                self.driver.press_keycode(4)
-                self.driver.find_element(*LearnHome.video_close_button).click()
-        except NoSuchElementException:
-            time.sleep(10)
-            self.driver.press_keycode(4)
-            self.driver.find_element(*LearnHome.video_close_button).click()
 
-        # Related Video Click
-        time.sleep(2)
-        self.driver.find_element(*LearnHome.related_video_tile).click()
-        try:
-            if self.driver.find_element(AppiumBy.XPATH,
-                                        '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup/android.view.ViewGroup').is_displayed():
-                self.driver.find_element(*LearnHome.video_resume_button).click()
-                time.sleep(5)
-                self.driver.press_keycode(4)
-                self.driver.find_element(*LearnHome.video_close_button).click()
-        except NoSuchElementException:
-            time.sleep(10)
-            self.driver.press_keycode(4)
-            self.driver.find_element(*LearnHome.video_close_button).click()
 
     def practice_taking(self):
         time.sleep(10)
@@ -470,6 +530,8 @@ class LearnHome():
                 wait.until(EC.element_to_be_clickable(TestHome.instruc_next_button)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.instruct_chkbox)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.i_am_ready_to_begin_btn)).click()
+                time.sleep(10)
+                self.take_test()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_confirm_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.view_fb_btn)).click()
@@ -477,6 +539,8 @@ class LearnHome():
             else:
                 wait.until(EC.element_to_be_clickable(TestHome.instruct_chkbox)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.old_test_ui_start_test_btn)).click()
+                time.sleep(10)
+                self.take_test()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_confirm_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.view_fb_btn)).click()

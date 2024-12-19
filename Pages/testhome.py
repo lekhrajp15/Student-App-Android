@@ -313,14 +313,17 @@ class TestHome:
                         self.driver.find_element(*TestHome.instruc_next_button).click()
                         self.driver.find_element(*TestHome.instruct_chkbox).click()
                         self.driver.find_element(*TestHome.i_am_ready_to_begin_btn).click()
+                        self.take_test()
                 except NoSuchElementException:
                     self.driver.find_element(*TestHome.instruct_chkbox).click()
                     self.driver.find_element(*TestHome.old_test_ui_start_test_btn).click()
+                    time.sleep(10)
+                    self.take_test()
 
             elif btn == 'Resume Test':
                 self.driver.find_element(*TestHome.test_btn).click()
-
-            time.sleep(10)
+                time.sleep(10)
+                self.take_test()
 
             self.driver.find_element(*TestHome.submit_btn).click()
             time.sleep(5)
@@ -351,6 +354,8 @@ class TestHome:
                 wait.until(EC.element_to_be_clickable(TestHome.instruc_next_button)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.instruct_chkbox)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.i_am_ready_to_begin_btn)).click()
+                time.sleep(10)
+                self.take_test()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_confirm_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.view_fb_btn)).click()
@@ -358,6 +363,8 @@ class TestHome:
             else:
                 wait.until(EC.element_to_be_clickable(TestHome.instruct_chkbox)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.old_test_ui_start_test_btn)).click()
+                time.sleep(10)
+                self.take_test()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.submit_confirm_btn)).click()
                 wait.until(EC.element_to_be_clickable(TestHome.view_fb_btn)).click()
@@ -529,3 +536,121 @@ class TestHome:
 
         self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text=""]').click()
         self.driver.find_element(AppiumBy.ID, 'com.embibe.student:id/btn_quit').click()
+
+    def take_test(self):
+            self.driver.find_element(AppiumBy.ID, 'com.embibe.student:id/iconList').click()
+            ques_count = self.driver.find_elements(
+                AppiumBy.XPATH,
+                '//androidx.recyclerview.widget.RecyclerView[@resource-id="com.embibe.student:id/recyclerQuestionSummary"]/android.view.ViewGroup'
+            )
+            print(f"Total Questions: {len(ques_count)}")
+            time.sleep(2)
+
+            self.driver.press_keycode(4)
+            for k in range(1, len(ques_count) + 1):
+                try:
+                    question = self.driver.find_element(
+                        AppiumBy.XPATH,
+                        '//android.widget.TextView[@resource-id="com.embibe.student:id/textQuestionType"]'
+                    ).text
+                except NoSuchElementException:
+                    question = "Unknown"
+
+                print(f"Question {k}: {question}")
+
+                if question in ['   Single Choice', '   True False', '   Matrix Single Choice']:
+                    try:
+                        self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="A"]').click()
+                    except NoSuchElementException:
+                        print("Option 'A' not found.")
+                    finally:
+                        try:
+                            self.driver.find_element(
+                                AppiumBy.XPATH,
+                                '//android.widget.TextView[@resource-id="com.embibe.student:id/btnSaveNext"]'
+                            ).click()
+                        except NoSuchElementException:
+                            print("Save/Next button not found.")
+
+                elif question == '   Multiple Choice':
+                    try:
+                        self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="A"]').click()
+                        self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="B"]').click()
+                    except NoSuchElementException:
+                        print("Multiple Choice options not found.")
+                    finally:
+                        try:
+                            self.driver.find_element(
+                                AppiumBy.XPATH,
+                                '//android.widget.TextView[@resource-id="com.embibe.student:id/btnSaveNext"]'
+                            ).click()
+                        except NoSuchElementException:
+                            print("Save/Next button not found.")
+
+                elif question in ['   Subjective Numerical', '   Integer']:
+                    try:
+                        input_field = self.driver.find_element(AppiumBy.XPATH, '//android.widget.EditText')
+                        input_field.click()
+                        time.sleep(1)
+                        input_field.send_keys("12")
+                        self.driver.hide_keyboard()
+                    except NoSuchElementException:
+                        print("Input field not found.")
+                    finally:
+                        try:
+                            self.driver.find_element(
+                                AppiumBy.XPATH,
+                                '//android.widget.TextView[@resource-id="com.embibe.student:id/btnSaveNext"]'
+                            ).click()
+                        except NoSuchElementException:
+                            print("Save/Next button not found.")
+
+                elif question == '   Multiple Fill In The Blanks':
+                    try:
+                        for i in range(2):  # Assuming 2 blanks
+                            blank_xpath = f'//android.view.View[@resource-id="fb-blank-{i}"]'
+                            blank = self.driver.find_element(AppiumBy.XPATH, blank_xpath)
+                            blank.click()
+                            time.sleep(1)
+                            blank.send_keys("FIB")
+                            time.sleep(1)
+                            self.driver.hide_keyboard()
+                    except NoSuchElementException:
+                        print("Fill in the Blanks fields not found.")
+                    finally:
+                        try:
+                            self.driver.find_element(
+                                AppiumBy.XPATH,
+                                '//android.widget.TextView[@resource-id="com.embibe.student:id/btnSaveNext"]'
+                            ).click()
+                        except NoSuchElementException:
+                            print("Save/Next button not found.")
+                elif question == '   Fill In The Blanks':
+                    try:
+
+                            blank_xpath = "//android.view.View[@resource-id='fb-blank-0']"
+                            blank = self.driver.find_element(AppiumBy.XPATH, blank_xpath)
+                            blank.click()
+                            time.sleep(1)
+                            blank.send_keys("FIB")
+                            time.sleep(1)
+                            self.driver.hide_keyboard()
+                    except NoSuchElementException:
+                        print("Fill in the Blanks fields not found.")
+                    finally:
+                        try:
+                            self.driver.find_element(
+                                AppiumBy.XPATH,
+                                '//android.widget.TextView[@resource-id="com.embibe.student:id/btnSaveNext"]'
+                            ).click()
+                        except NoSuchElementException:
+                            print("Save/Next button not found.")
+
+                else:
+                    try:
+                        self.driver.find_element(
+                            AppiumBy.XPATH,
+                            '//android.widget.TextView[@resource-id="com.embibe.student:id/btnSaveNext"]'
+                        ).click()
+                    except NoSuchElementException:
+                        print("Save/Next button not found.")

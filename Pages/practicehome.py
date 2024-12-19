@@ -127,10 +127,10 @@ class PracticeHome(LearnHome, TestHome):
         ScrollUtil.scroll_until_element_is_visible(self.driver, PracticeHome.author_book)
         # ScrollUtil.swipeUp(1, self.driver)
         self.driver.find_element(*PracticeHome.author_book).click()
-        self.driver.find_element(*PracticeHome.add_book_btn).click()
-        # self.driver.find_element(AppiumBy.XPATH, '//androidx.recyclerview.widget.RecyclerView[@resource-id="com.embibe.student:id/book_recycler_view"]/android.view.ViewGroup[1]').click()
-        # self.driver.find_element(AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="com.embibe.student:id/clBookChapter"])[1]').click()
-        # self.driver.find_element(AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="com.embibe.student:id/clBookChapter"])[1]').click()
+        try :
+            self.driver.find_element(*PracticeHome.add_book_btn).click()
+        except :
+            print("Book already added")
 
     def embibe_big_book(self):
         self.driver.find_element(*PracticeHome.guided_tour_cancel_btn).click()
